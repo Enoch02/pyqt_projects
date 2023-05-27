@@ -1,7 +1,0 @@
-<RCC>
-  <qresource prefix="icons">
-    <file>icons/plus.png</file>
-    <file>icons/041.png</file>
-    <file>icons/magnifier.png</file>
-  </qresource>
-</RCC>
