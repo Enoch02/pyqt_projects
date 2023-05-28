@@ -28,6 +28,9 @@
         <property name="wordWrap">
          <bool>true</bool>
         </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
        </widget>
       </item>
       <item>
@@ -35,49 +38,56 @@
         <property name="text">
          <string>TextLabel</string>
         </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="getQuoteButton">
-        <property name="text">
-         <string>Get Random Quote</string>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
         </property>
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="getQuoteButton">
+          <property name="text">
+           <string>Get Random Quote</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>
    </layout>
   </widget>
+  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -87,14 +97,14 @@
      <height>23</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuAbout">
+   <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>About</string>
+     <string>Help</string>
     </property>
+    <addaction name="actionAbout"/>
    </widget>
-   <addaction name="menuAbout"/>
+   <addaction name="menuHelp"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionSave_to_text_file">
    <property name="text">
     <string>Save to text file</string>
@@ -103,6 +113,11 @@
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
    </property>
   </action>
  </widget>

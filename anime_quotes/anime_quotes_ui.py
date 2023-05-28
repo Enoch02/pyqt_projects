@@ -29,6 +29,8 @@ class Ui_MainWindow(object):
         self.actionSave_to_text_file.setObjectName(u"actionSave_to_text_file")
         self.actionExit = QAction(MainWindow)
         self.actionExit.setObjectName(u"actionExit")
+        self.actionAbout = QAction(MainWindow)
+        self.actionAbout.setObjectName(u"actionAbout")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
@@ -39,16 +41,16 @@ class Ui_MainWindow(object):
         self.quoteLabel.setObjectName(u"quoteLabel")
         self.quoteLabel.setAlignment(Qt.AlignCenter)
         self.quoteLabel.setWordWrap(True)
+        self.quoteLabel.setTextInteractionFlags(Qt.LinksAccessibleByMouse|Qt.TextSelectableByMouse)
 
         self.verticalLayout.addWidget(self.quoteLabel)
 
         self.characterAnimeLabel = QLabel(self.centralwidget)
         self.characterAnimeLabel.setObjectName(u"characterAnimeLabel")
+        self.characterAnimeLabel.setAlignment(Qt.AlignCenter)
+        self.characterAnimeLabel.setTextInteractionFlags(Qt.LinksAccessibleByMouse|Qt.TextSelectableByMouse)
 
         self.verticalLayout.addWidget(self.characterAnimeLabel)
-
-
-        self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -66,20 +68,24 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addItem(self.horizontalSpacer_2)
 
 
-        self.verticalLayout_2.addLayout(self.horizontalLayout)
+        self.verticalLayout.addLayout(self.horizontalLayout)
+
+
+        self.verticalLayout_2.addLayout(self.verticalLayout)
 
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QMenuBar(MainWindow)
-        self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 437, 23))
-        self.menuAbout = QMenu(self.menubar)
-        self.menuAbout.setObjectName(u"menuAbout")
-        MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        self.menubar = QMenuBar(MainWindow)
+        self.menubar.setObjectName(u"menubar")
+        self.menubar.setGeometry(QRect(0, 0, 437, 23))
+        self.menuHelp = QMenu(self.menubar)
+        self.menuHelp.setObjectName(u"menuHelp")
+        MainWindow.setMenuBar(self.menubar)
 
-        self.menubar.addAction(self.menuAbout.menuAction())
+        self.menubar.addAction(self.menuHelp.menuAction())
+        self.menuHelp.addAction(self.actionAbout)
 
         self.retranslateUi(MainWindow)
 
@@ -90,9 +96,10 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.actionSave_to_text_file.setText(QCoreApplication.translate("MainWindow", u"Save to text file", None))
         self.actionExit.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
+        self.actionAbout.setText(QCoreApplication.translate("MainWindow", u"About", None))
         self.quoteLabel.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.characterAnimeLabel.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.getQuoteButton.setText(QCoreApplication.translate("MainWindow", u"Get Random Quote", None))
-        self.menuAbout.setTitle(QCoreApplication.translate("MainWindow", u"About", None))
+        self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
     # retranslateUi
 
