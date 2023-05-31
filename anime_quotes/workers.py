@@ -16,6 +16,8 @@ class RandomQuoteWorker(QRunnable):
             if response.status_code == 200:
                 data = response.json()
                 self.signals.success.emit(data)
+            if response.status_code == 503:
+                raise Exception("Service Unavailable")
 
         except Exception as e:
             self.signals.failure.emit(str(e))

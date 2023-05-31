@@ -26,7 +26,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.quoteLabel.setText("")
         self.characterAnimeLabel.setText("")
         self.getQuoteButton.clicked.connect(self.get_random_quote)
-
         self.actionAbout.triggered.connect(self.show_about_dialog)
 
     def get_random_quote(self):
@@ -59,14 +58,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             "Error",
             message,
             QMessageBox.StandardButton.Retry,
+            QMessageBox.StandardButton.Close,
         )
 
         if msg_box == QMessageBox.StandardButton.Retry:
             self.get_random_quote()
+        else:
+            app.exit(retcode=1)
 
     def show_about_dialog(self):
-        message = QLabel()
-
         QMessageBox.information(
             self,
             "About",
