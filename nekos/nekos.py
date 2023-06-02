@@ -1,8 +1,9 @@
+import json
 import sys
 
 from PySide6.QtCore import QThreadPool
 from PySide6.QtCore import Qt, QTimer
-from PySide6.QtGui import QPixmap, QImage
+from PySide6.QtGui import QPixmap, QImage, QCloseEvent, QShowEvent
 from PySide6.QtWidgets import (
     QApplication,
     QWidget,
@@ -14,7 +15,7 @@ from PySide6.QtWidgets import (
     QProgressBar,
 )
 
-from workers import ImageGalleryWorker, ImageLoaderWorker
+from workers import ImageGalleryWorker, ImageLoaderWorker, cache
 
 
 class MainWindow(QWidget):
@@ -89,6 +90,7 @@ class MainWindow(QWidget):
         self.get_next_image()
 
     def load_image(self, url: str):
+        # TODO: handle when the clicks the next or previous button quickly
         worker = ImageLoaderWorker(url)
         worker.signals.success.connect(self.update_labels)
         worker.signals.loading.connect(self.show_progress)
@@ -97,21 +99,22 @@ class MainWindow(QWidget):
         self.threadpool.start(worker)
 
     def get_next_image(self):
-        if not (self.current_image_index > len(self.images) - 1):
+        try:
+            self.current_image_index += 1
+            image = self.images[self.current_image_index]
+        except IndexError:
+            self.current_image_index = 0
             image = self.images[self.current_image_index]
 
-            self.current_image_index += 1
-            self.image_label.clear()
-            self.load_image(image["url"])
-            self.image_label.update()
-        else:
-            self.current_image_index = 0
+        self.image_label.clear()
+        self.load_image(image["url"])
+        self.image_label.update()
 
     def get_previous_image(self):
-        if self.current_image_index != 0:
-            self.current_image_index -= 1
-        else:
+        if self.current_image_index == 0:
             self.current_image_index = len(self.images) - 1
+        else:
+            self.current_image_index -= 1
 
         image = self.images[self.current_image_index]
         self.load_image(image["url"])
@@ -158,6 +161,24 @@ class MainWindow(QWidget):
             self.progress_bar.setValue(
                 (self.progress_bar.value() + 1) % self.progress_bar.maximum()
             )
+
+    def showEvent(self, event: QShowEvent) -> None:
+        super().showEvent(event)
+
+        try:
+            with open("cache", "r") as f:
+                data = json.load(f)
+                cache.update(data)
+
+        except FileNotFoundError:
+            print("No cache found")  # TODO: replace with logging function?
+
+    def closeEvent(self, event: QCloseEvent) -> None:
+        super().closeEvent(event)
+        with open("cache", "w") as f:
+            json.dump(cache, f)
+
+        # TODO: end all runners when the program is closing
 
 
 if __name__ == "__main__":
